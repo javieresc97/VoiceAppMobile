@@ -20,19 +20,29 @@ namespace VoicePay
             await viewModel.CheckPermissions();
             if (viewModel.PermissionStatus == PermissionStatus.Granted)
             {
-                RecordBtn.Pressed += RecordBtn_Pressed;
-                RecordBtn.Released += RecordBtn_Released;
+                RecordBtn.Clicked += RecordBtn_Pressed;
+                SendBtn.Clicked += SendBtn_Clicked;
             }
         }
 
         void RecordBtn_Pressed(object sender, System.EventArgs e)
         {
-            viewModel.StartRecordingCommand.Execute(null);
+            if(!viewModel.IsRecordingAudio)
+            {
+                viewModel.StartRecordingCommand.Execute(null);
+                RecordBtn.Text = "Stop";
+            }
+            else
+            {
+                viewModel.StopRecordingCommand.Execute(null);
+                RecordBtn.Text = "Grabar";
+            }
+
         }
 
-        void RecordBtn_Released(object sender, System.EventArgs e)
+        async void SendBtn_Clicked(object sender, System.EventArgs e)
         {
-            viewModel.StopRecordingCommand.Execute(null);
+            await viewModel.CreateProfile();
         }
     }
 }

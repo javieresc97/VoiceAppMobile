@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoicePay.iOS", "iOS\VoicePa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoicePay.Droid", "Droid\VoicePay.Droid.csproj", "{105E44D0-9F8D-4155-A6F8-88FD6D9A73D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerRecognitionAPI", "SpeakerRecognitionAPI\SpeakerRecognitionAPI.csproj", "{302FBC3F-8D20-48F1-975F-B2FFFC732A80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,5 +55,17 @@ Global
 		{105E44D0-9F8D-4155-A6F8-88FD6D9A73D3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{105E44D0-9F8D-4155-A6F8-88FD6D9A73D3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{105E44D0-9F8D-4155-A6F8-88FD6D9A73D3}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|iPhone.Build.0 = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{302FBC3F-8D20-48F1-975F-B2FFFC732A80}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

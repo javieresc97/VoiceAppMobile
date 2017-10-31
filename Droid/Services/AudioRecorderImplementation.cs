@@ -45,7 +45,7 @@ namespace VoicePay.Droid.Services
         public void SetUp()
         {
             _recorder.SetAudioSource(AudioSource.Mic);
-            _recorder.SetOutputFormat(OutputFormat.Mpeg4);
+            _recorder.SetOutputFormat(OutputFormat.Default);
             _recorder.SetAudioEncoder(AudioEncoder.Default);
             _fullFilePath = $"{_path}/{_fileName}";
             _recorder.SetOutputFile(_fullFilePath);
