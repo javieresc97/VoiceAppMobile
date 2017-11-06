@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using SpeakerRecognitionAPI.Models;
 using SpeakerRecognitionAPI.Constants;
 
-namespace SpeakerRecognitionAPI.API
+namespace SpeakerRecognitionAPI
 {
     public class SpeakerIdentificationClient : SpeakerServiceBase
     {
@@ -25,28 +25,11 @@ namespace SpeakerRecognitionAPI.API
         /// </summary>
         /// <returns>Profile response that contains the id of the created speaker identification profile.</returns>
         /// <param name="locale">Locale.</param>
-        public async Task<ProfileResponse> CreateProfileAsync(string locale = "en-us")
+        public async Task<ProfileIdentification> CreateProfileAsync(string locale = "en-us")
         {
-            try
-            {
-                var content = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("locale", locale)
-                });
-
-                var response = await _httpClient.PostAsync(Endpoints.SpeakerIdentificationCreateProfile.ToString(), content);
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                    throw BuildErrorFromServiceResult(jsonResponse);
-
-                var result = JsonConvert.DeserializeObject<ProfileResponse>(jsonResponse);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("EXCEPTION: " + ex.Message);
-                throw;
-            }
+            var jsonResponse = await CreateProfileAsync(false, locale);
+            var result = JsonConvert.DeserializeObject<ProfileIdentification>(jsonResponse);
+            return result;
         }
 
         /// <summary>
@@ -60,7 +43,7 @@ namespace SpeakerRecognitionAPI.API
         {
             try
             {
-                var requestUri = string.Format(Endpoints.SpeakerIdentificationEnroll.ToString(), profileId);
+                var requestUri = string.Format(Endpoints.IdentificationEnroll.ToString(), profileId);
                 var request = PrepareMediaRequest(audioFilePath, requestUri);
 
                 var response = await _httpClient.SendAsync(request);
@@ -87,7 +70,7 @@ namespace SpeakerRecognitionAPI.API
         /// <returns>The enrollment status.</returns>
         /// <param name="trackingUrl">Tracking URL.</param>
         /// <exception cref="T:System.ArgumentNullException">Throws exception if null or empty url.</exception>
-        public async Task<EnrollmentResponse> CheckEnrollmentStatusAsync(string trackingUrl)
+        public async Task<EnrollmentIdentification> CheckEnrollmentStatusAsync(string trackingUrl)
         {
             if (string.IsNullOrEmpty(trackingUrl))
                 throw new ArgumentNullException(nameof(trackingUrl), "Tracking url is null or empty");
@@ -99,7 +82,7 @@ namespace SpeakerRecognitionAPI.API
                 if (!response.IsSuccessStatusCode)
                     throw BuildErrorFromServiceResult(jsonResponse);
 
-                var result = JsonConvert.DeserializeObject<EnrollmentResponse>(jsonResponse);
+                var result = JsonConvert.DeserializeObject<EnrollmentIdentification>(jsonResponse);
                 return result;
             }
             catch (Exception ex)
@@ -120,11 +103,11 @@ namespace SpeakerRecognitionAPI.API
         {
             try
             {
-                if (!identificationProfileIds.Any())
+                if (identificationProfileIds == null || !identificationProfileIds.Any())
                     throw new ArgumentException("No ids provided", nameof(identificationProfileIds));
 
                 var profileIdsParam = string.Join(",", identificationProfileIds);
-                var requestUri = string.Format(Endpoints.SpeakerIdentify.ToString(), profileIdsParam);
+                var requestUri = string.Format(Endpoints.Identify.ToString(), profileIdsParam);
                 var request = PrepareMediaRequest(audioFilePath, requestUri);
 
                 var response = await _httpClient.SendAsync(request);
@@ -151,7 +134,7 @@ namespace SpeakerRecognitionAPI.API
         /// <returns>The identification status.</returns>
         /// <param name="trackingUrl">Tracking URL.</param>
         /// <exception cref="T:System.ArgumentNullException">Throws exception if null or empty url.</exception>
-        public async Task<EnrollmentResponse> CheckIdentificationStatusAsync(string trackingUrl)
+        public async Task<EnrollmentIdentification> CheckIdentificationStatusAsync(string trackingUrl)
         {
             if (string.IsNullOrEmpty(trackingUrl))
                 throw new ArgumentNullException(nameof(trackingUrl), "Tracking url is null or empty");
@@ -163,7 +146,7 @@ namespace SpeakerRecognitionAPI.API
                 if (!response.IsSuccessStatusCode)
                     throw BuildErrorFromServiceResult(jsonResponse);
 
-                var result = JsonConvert.DeserializeObject<EnrollmentResponse>(jsonResponse);
+                var result = JsonConvert.DeserializeObject<EnrollmentIdentification>(jsonResponse);
                 return result;
             }
             catch (Exception ex)

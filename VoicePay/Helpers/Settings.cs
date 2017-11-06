@@ -5,47 +5,25 @@ using Plugin.Settings.Abstractions;
 namespace VoicePay.Helpers
 {
     public static class Settings
-	{
-        static IVoiceAppSettings settings;
-        public static IVoiceAppSettings Instance
+    {
+        static ISettings settings;
+        public static ISettings Instance
         {
             get
             {
-                return settings ?? (settings = new VoiceAppSettings());
+                return settings ?? CrossSettings.Current;
             }
             set
             {
                 settings = value;
             }
         }
-	}
 
-    public interface IVoiceAppSettings
-    {
-        string UserIdentificationId { get; set; }
-    }
-
-    public class VoiceAppSettings : IVoiceAppSettings
-    {
-        private ISettings AppSettings => CrossSettings.Current;
-
-        #region Setting Constants
-
-        private const string UserIdentificationIdKey = "user_identification_id";
-        private static readonly string UserIdentificationIdDefault = string.Empty;
-
-        #endregion
-
-        public string UserIdentificationId 
+        public static string UserIdentificationId
         {
-            get
-            {
-                return AppSettings.GetValueOrDefault(UserIdentificationIdKey, UserIdentificationIdDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue(UserIdentificationIdKey, value);
-            }
+            get => Instance.GetValueOrDefault(nameof(UserIdentificationId), string.Empty);
+            set => Instance.AddOrUpdateValue(nameof(UserIdentificationId), value);
         }
     }
+
 }

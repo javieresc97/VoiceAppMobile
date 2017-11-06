@@ -29,20 +29,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\LocaleRequest.cs" />
     <Compile Include="Constants\Endpoints.cs" />
-    <Compile Include="Models\ProfileResponse.cs" />
+    <Compile Include="Models\ProfileIdentification.cs" />
     <Compile Include="Constants\MimeTypes.cs" />
     <Compile Include="Models\ServiceError.cs" />
-    <Compile Include="Models\Enrollment.cs" />
+    <Compile Include="Models\EnrollmentVerification.cs" />
     <Compile Include="Helpers\MediaRequestHelper.cs" />
     <Compile Include="Helpers\SpeakerRecognitionException.cs" />
     <Compile Include="Helpers\PushStreamContent.cs" />
     <Compile Include="SpeakerIdentificationClient.cs" />
-    <Compile Include="Models\EnrollmentResponse.cs" />
+    <Compile Include="Models\EnrollmentIdentification.cs" />
     <Compile Include="Models\VerificationResponse.cs" />
     <Compile Include="SpeakerServiceBase.cs" />
     <Compile Include="SpeakerVerificationClient.cs" />
+    <Compile Include="Models\EnrollmentStatus.cs" />
+    <Compile Include="Models\Phrase.cs" />
+    <Compile Include="Models\ProfileVerification.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

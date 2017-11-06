@@ -1,7 +1,7 @@
 ﻿using System;
 namespace SpeakerRecognitionAPI.Models
 {
-    public class EnrollmentResponse
+    public class EnrollmentIdentification
     {
         public Status Status { get; set; }
         public DateTime CreatedDateTime { get; set; }
@@ -17,13 +17,6 @@ namespace SpeakerRecognitionAPI.Models
         public double SpeechTime { get; set; }
         public double EnrollmentSpeechTime { get; set; }
         public string IdentifiedProfileId { get; set; }
-    }
-
-    public enum EnrollmentStatus
-    {
-        Enrolled,
-        Enrolling,
-        Training
     }
 
     public enum Status

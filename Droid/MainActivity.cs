@@ -8,6 +8,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
+using Lottie.Forms.Droid;
+using FormsToolkit.Droid;
 
 namespace VoicePay.Droid
 {
@@ -22,7 +24,8 @@ namespace VoicePay.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-
+            AnimationViewRenderer.Init();
+            Toolkit.Init();
             LoadApplication(new App());
         }
 

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace VoicePay.ViewModel
+namespace VoicePay.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
@@ -15,7 +15,7 @@ namespace VoicePay.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

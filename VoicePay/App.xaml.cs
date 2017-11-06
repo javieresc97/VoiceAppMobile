@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using VoicePay.Helpers;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -11,7 +12,7 @@ namespace VoicePay
         {
             InitializeComponent();
 
-            MainPage = new VoicePayPage();
+            MainPage = new NavigationPage(new Views.Enrollment.WelcomePage());
         }
 
         protected override void OnStart()

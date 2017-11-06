@@ -3,17 +3,35 @@ namespace SpeakerRecognitionAPI.Constants
 {
     internal static class Endpoints
     {
-        internal static WestUsSpeakerRecognitionEndpoint SpeakerIdentificationEnroll 
-                = new WestUsSpeakerRecognitionEndpoint("/identificationProfiles/{0}/enroll");
+        #region Identification
 
-        internal static WestUsSpeakerRecognitionEndpoint SpeakerIdentificationCreateProfile
+        internal static WestUsSpeakerRecognitionEndpoint IdentificationCreateProfile
                 = new WestUsSpeakerRecognitionEndpoint("/identificationProfiles");
 
-        internal static WestUsSpeakerRecognitionEndpoint SpeakerVerify
+        internal static WestUsSpeakerRecognitionEndpoint IdentificationEnroll 
+                = new WestUsSpeakerRecognitionEndpoint("/identificationProfiles/{0}/enroll");
+
+        internal static WestUsSpeakerRecognitionEndpoint Identify
+                = new WestUsSpeakerRecognitionEndpoint("/identify?identificationProfileIds={0}");
+
+        #endregion
+
+
+        #region Verification
+
+        internal static WestUsSpeakerRecognitionEndpoint VerificationCreateProfile
+                = new WestUsSpeakerRecognitionEndpoint("/verificationProfiles");
+
+        internal static WestUsSpeakerRecognitionEndpoint VerificationEnroll
+                = new WestUsSpeakerRecognitionEndpoint("/verificationProfiles/{0}/enroll");
+
+        internal static WestUsSpeakerRecognitionEndpoint Verify
                 = new WestUsSpeakerRecognitionEndpoint("/verify?verificationProfileId={0}");
 
-        internal static WestUsSpeakerRecognitionEndpoint SpeakerIdentify
-                = new WestUsSpeakerRecognitionEndpoint("/identify?identificationProfileIds={0}");
+        internal static WestUsSpeakerRecognitionEndpoint VerificationPhrases
+                = new WestUsSpeakerRecognitionEndpoint("/verificationPhrases?locale={0}");
+
+        #endregion
 
 
         internal class WestUsSpeakerRecognitionEndpoint
@@ -28,7 +46,7 @@ namespace SpeakerRecognitionAPI.Constants
 
             public override string ToString()
             {
-                return string.Format($"{BaseServiceUri}{_relativePath}");
+                return $"{BaseServiceUri}{_relativePath}";
             }
         }
     }
