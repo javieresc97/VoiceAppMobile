@@ -5,13 +5,13 @@ namespace SpeakerRecognitionAPI.Constants
     {
         #region Identification
 
-        internal static WestUsSpeakerRecognitionEndpoint IdentificationCreateProfile
+        internal readonly static WestUsSpeakerRecognitionEndpoint IdentificationCreateProfile
                 = new WestUsSpeakerRecognitionEndpoint("/identificationProfiles");
 
-        internal static WestUsSpeakerRecognitionEndpoint IdentificationEnroll 
+        internal readonly static WestUsSpeakerRecognitionEndpoint IdentificationEnroll 
                 = new WestUsSpeakerRecognitionEndpoint("/identificationProfiles/{0}/enroll");
 
-        internal static WestUsSpeakerRecognitionEndpoint Identify
+        internal readonly static WestUsSpeakerRecognitionEndpoint Identify
                 = new WestUsSpeakerRecognitionEndpoint("/identify?identificationProfileIds={0}");
 
         #endregion
@@ -19,16 +19,16 @@ namespace SpeakerRecognitionAPI.Constants
 
         #region Verification
 
-        internal static WestUsSpeakerRecognitionEndpoint VerificationCreateProfile
+        internal readonly static WestUsSpeakerRecognitionEndpoint VerificationCreateProfile
                 = new WestUsSpeakerRecognitionEndpoint("/verificationProfiles");
 
-        internal static WestUsSpeakerRecognitionEndpoint VerificationEnroll
+        internal readonly static WestUsSpeakerRecognitionEndpoint VerificationEnroll
                 = new WestUsSpeakerRecognitionEndpoint("/verificationProfiles/{0}/enroll");
 
-        internal static WestUsSpeakerRecognitionEndpoint Verify
+        internal readonly static WestUsSpeakerRecognitionEndpoint Verify
                 = new WestUsSpeakerRecognitionEndpoint("/verify?verificationProfileId={0}");
 
-        internal static WestUsSpeakerRecognitionEndpoint VerificationPhrases
+        internal readonly static WestUsSpeakerRecognitionEndpoint VerificationPhrases
                 = new WestUsSpeakerRecognitionEndpoint("/verificationPhrases?locale={0}");
 
         #endregion
@@ -37,7 +37,7 @@ namespace SpeakerRecognitionAPI.Constants
         internal class WestUsSpeakerRecognitionEndpoint
         {
             private const string BaseServiceUri = "https://westus.api.cognitive.microsoft.com/spid/v1.0";
-            private string _relativePath;
+            private readonly string _relativePath;
 
             public WestUsSpeakerRecognitionEndpoint(string relativePath)
             {

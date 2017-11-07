@@ -134,7 +134,7 @@ namespace SpeakerRecognitionAPI.Helpers
 
         internal class CompleteTaskOnCloseStream : DelegatingStream
         {
-            private TaskCompletionSource<bool> _serializeToStreamTask;
+            private readonly TaskCompletionSource<bool> _serializeToStreamTask;
 
             public CompleteTaskOnCloseStream(Stream innerStream, TaskCompletionSource<bool> serializeToStreamTask)
                 : base(innerStream)
@@ -163,7 +163,7 @@ namespace SpeakerRecognitionAPI.Helpers
     // https://github.com/ASP-NET-MVC/aspnetwebstack/blob/d5188c8a75b5b26b09ab89bedfd7ee635ae2ff17/src/System.Net.Http.Formatting/Internal/DelegatingStream.cs
     internal abstract class DelegatingStream : Stream
     {
-        Stream innerStream;
+        readonly Stream innerStream;
 
         protected DelegatingStream(Stream innerStream)
         {
