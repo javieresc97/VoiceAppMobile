@@ -4,8 +4,8 @@
         xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
         xmlns:tkt="clr-namespace:FormsToolkit;assembly=FormsToolkit"
         xmlns:vm="clr-namespace:VoicePay.ViewModels.Enrollment"
-        x:Class="VoicePay.Views.Enrollment.AudioRecordingPage">
-    
+        x:Class="VoicePay.Views.Enrollment.AudioVerifyPage">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <tkt:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
@@ -13,10 +13,10 @@
     </ContentPage.Resources>
 
     <ContentPage.BindingContext>
-        <vm:AudioTrainingViewModel />
+        <vm:AudioVerifyViewModel />
     </ContentPage.BindingContext>
     
-    <ContentPage.Content>
+	<ContentPage.Content>
         <Grid BackgroundColor="{StaticResource Primary}" Padding="16,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -41,15 +41,6 @@
                 HorizontalOptions="FillAndExpand" 
                 BackgroundColor="{StaticResource Primary}" 
                 Loop="true" />
-
-            <forms:AnimationView x:Name="CompletedAnimated"
-                Animation="completed.json"
-                AutoPlay="false"
-                IsVisible="{Binding IsCompleted}"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand" 
-                BackgroundColor="{StaticResource Primary}" 
-                Loop="false" />              
             
             <StackLayout VerticalOptions="End" Grid.Row="1">
                 <Label Text="{Binding StateMessage}" 
@@ -64,5 +55,5 @@
                     FontSize="22" />
             </StackLayout>
         </Grid>
-    </ContentPage.Content>
+	</ContentPage.Content>
 </ContentPage>

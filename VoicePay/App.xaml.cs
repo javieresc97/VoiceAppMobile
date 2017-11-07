@@ -12,6 +12,7 @@ namespace VoicePay
         {
             InitializeComponent();
 
+            //Settings.Instance.Clear();
             MainPage = new NavigationPage(new Views.Enrollment.WelcomePage());
         }
 

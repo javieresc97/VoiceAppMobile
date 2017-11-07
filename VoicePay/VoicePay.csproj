@@ -40,6 +40,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Enrollment\AudioVerifyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -61,9 +65,15 @@
     <Compile Include="Views\Enrollment\AudioRecordingPage.xaml.cs">
       <DependentUpon>AudioRecordingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Enrollment\AudioRecordingViewModel.cs" />
+    <Compile Include="ViewModels\Enrollment\AudioTrainingViewModel.cs" />
     <Compile Include="Helpers\EnrollmentProcess.cs" />
     <Compile Include="Services\Interfaces\IBeepPlayer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Views\Enrollment\AudioVerifyPage.xaml.cs">
+      <DependentUpon>AudioVerifyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Enrollment\AudioVerifyViewModel.cs" />
+    <Compile Include="ViewModels\AudioRecordingBaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

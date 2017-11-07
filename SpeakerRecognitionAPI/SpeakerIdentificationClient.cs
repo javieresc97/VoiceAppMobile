@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SpeakerRecognitionAPI.Models;
 using SpeakerRecognitionAPI.Constants;
+using SpeakerRecognitionAPI.Interfaces;
 
 namespace SpeakerRecognitionAPI
 {
-    public class SpeakerIdentificationClient : SpeakerServiceBase
+    public class SpeakerIdentificationClient : SpeakerServiceBase, ISpeakerIdentification
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:SpeakerRecognitionAPI.API.SpeakerIdentificationClient"/> class.
@@ -38,8 +37,7 @@ namespace SpeakerRecognitionAPI
         /// <returns>The tracking url for the enrollment request.</returns>
         /// <param name="audioFilePath">Audio file path.</param>
         /// <param name="profileId">Speaker identification profile id.</param>
-        /// <param name="shortAudio">If set to <c>true</c> short audio.</param>
-        public async Task<string> EnrollAsync(string audioFilePath, string profileId, bool shortAudio = false)
+        public async Task<string> EnrollAsync(string audioFilePath, string profileId)
         {
             try
             {

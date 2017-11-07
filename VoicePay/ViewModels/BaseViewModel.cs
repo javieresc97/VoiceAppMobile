@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace VoicePay.ViewModels
 {
@@ -21,9 +20,12 @@ namespace VoicePay.ViewModels
         }
 
         //  TODO: Change it
-        public async Task DisplayAlert(string title, string message, string cancel)
+        public void DisplayAlert(string title, string message, string cancel)
         {
-            await Xamarin.Forms.Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            Device.BeginInvokeOnMainThread(async () => 
+            {
+                await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            });
         }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Plugin.AudioRecorder;
 using SpeakerRecognitionAPI.Helpers;
-using SpeakerRecognitionAPI.Models;
+using SpeakerRecognitionAPI.Interfaces;
 using VoicePay.Helpers;
 using VoicePay.Services;
 using VoicePay.Services.Interfaces;
@@ -12,47 +9,32 @@ using Xamarin.Forms;
 
 namespace VoicePay.ViewModels.Enrollment
 {
-    public class AudioRecordingViewModel : BaseViewModel
+    public class AudioTrainingViewModel : AudioRecordingBaseViewModel
     {
-        private readonly AudioRecorderService _recorder;
         private readonly IBeepPlayer _beeper;
+        private readonly ISpeakerVerification _verificationService;
         private string _phraseMessage => $"\"{EnrollmentProcess.SelectedPhrase.Text}\"";
 
-        public EnrollmentVerification Enrollment { get; set; } = new EnrollmentVerification();
-
-        private string _stateMessage;
-        public string StateMessage
+        private bool _isCompleted;
+        public bool IsCompleted
         {
-            get { return _stateMessage; }
-            set { _stateMessage = value; RaisePropertyChanged(); }
+            get { return _isCompleted; }
+            set { _isCompleted = value; RaisePropertyChanged(); }
         }
 
-        private string _message;
-        public string Message
-        {
-            get { return _message; }
-            set { _message = value; RaisePropertyChanged(); }
-        }
-
-
-        public AudioRecordingViewModel()
+        public AudioTrainingViewModel() : this(VerificationService.Instance) { }
+        public AudioTrainingViewModel(ISpeakerVerification verificationService)
         {
             StateMessage = "Espera...";
 
             _beeper = DependencyService.Get<IBeepPlayer>();
-            _recorder = new AudioRecorderService
-            {
-                AudioSilenceTimeout = TimeSpan.FromSeconds(4),
-                StopRecordingOnSilence = true,
-                StopRecordingAfterTimeout = false,
-                PreferredSampleRate = 16000,
-                SilenceThreshold = 0.1f
-            };
-            _recorder.AudioInputReceived += Recorder_AudioInputReceived;
+            _verificationService = verificationService;
+
+            Recorder.AudioInputReceived += async (object sender, string e) => { await Recorder_AudioInputReceived(sender, e); };
         }
 
 
-        private async void Recorder_AudioInputReceived(object sender, string audioFilePath)
+        private async Task Recorder_AudioInputReceived(object sender, string audioFilePath)
         {
             if (string.IsNullOrEmpty(audioFilePath))
             {
@@ -72,13 +54,15 @@ namespace VoicePay.ViewModels.Enrollment
                 var enrollmentResult = await VerificationService.Instance.EnrollAsync(audioFilePath, Settings.UserIdentificationId);
                 EnrollmentProcess.SelectedPhrase.Text = enrollmentResult.Phrase;
 
-                if (Enrollment.RemainingEnrollments > 0)
+                if (enrollmentResult.RemainingEnrollments > 0)
                 {
                     await StartRecording();
                 }
                 else
                 {
+                    IsCompleted = true;
                     StateMessage = "¡Muy bien! Hemos terminado.";
+                    Settings.EnrolledPhrase = EnrollmentProcess.SelectedPhrase.Text;
                 }
             }
             catch (SpeakerRecognitionException ex)
@@ -102,15 +86,9 @@ namespace VoicePay.ViewModels.Enrollment
             }
         }
 
-        private async Task WaitAndStartRecording()
+        public override async Task StartRecording()
         {
-            await Task.Delay(3000);
-            await StartRecording();
-        }
-
-        public async Task StartRecording()
-        {
-            await _recorder.StartRecording();
+            await Recorder.StartRecording();
             _beeper.Beep();
             StateMessage = "Escuchando...";
             Message = _phraseMessage;

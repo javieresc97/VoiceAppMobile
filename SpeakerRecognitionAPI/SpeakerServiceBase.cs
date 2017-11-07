@@ -67,8 +67,8 @@ namespace SpeakerRecognitionAPI
             var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
             request.Headers.TransferEncodingChunked = true;
             request.Headers.ExpectContinue = true;
-            request.Headers.Accept.ParseAdd(Constants.MimeTypes.Json);
-            request.Headers.Accept.ParseAdd(Constants.MimeTypes.Xml);
+            request.Headers.Accept.ParseAdd(MimeTypes.Json);
+            request.Headers.Accept.ParseAdd(MimeTypes.Xml);
             request.Content = MediaRequestHelper.PopulateRequestContent(audioFilePath);
             return request;
         }

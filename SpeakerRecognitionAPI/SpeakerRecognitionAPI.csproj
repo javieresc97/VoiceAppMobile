@@ -45,11 +45,14 @@
     <Compile Include="Models\EnrollmentStatus.cs" />
     <Compile Include="Models\Phrase.cs" />
     <Compile Include="Models\ProfileVerification.cs" />
+    <Compile Include="Interfaces\ISpeakerIdentification.cs" />
+    <Compile Include="Interfaces\ISpeakerVerification.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Constants\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

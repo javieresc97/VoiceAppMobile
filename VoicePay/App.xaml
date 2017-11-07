@@ -6,6 +6,7 @@
             <Color x:Key="Primary">#009688</Color>
             <Color x:Key="PrimaryDark">#00796B</Color>
             <Color x:Key="Accent">#FFC107</Color>
+            <Color x:Key="Accent2">#FF4081</Color>
 
             <!-- Default label style -->
             <Style TargetType="Label">

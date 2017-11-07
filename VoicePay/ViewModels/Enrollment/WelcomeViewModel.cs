@@ -1,26 +1,24 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.Permissions.Abstractions;
-using VoicePay.Views;
 using Xamarin.Forms;
 using Plugin.Permissions;
-using SpeakerRecognitionAPI;
-using VoicePay.Constants;
 using VoicePay.Helpers;
 using System.Diagnostics;
 using VoicePay.Services;
 using VoicePay.Views.Enrollment;
+using SpeakerRecognitionAPI.Interfaces;
 
 namespace VoicePay.ViewModels.Enrollment
 {
     public class WelcomeViewModel : BaseViewModel
     {
-        private readonly SpeakerVerificationClient _client;
+        private readonly ISpeakerVerification _verificationService;
         private readonly IPermissions _permissionService;
 
         public PermissionStatus PermissionStatus { get; private set; }
-        public ICommand CheckAndGoCommand { get; private set; }
-        public ICommand GoBackCommand { get; private set; }
+        public ICommand CheckAndGoTrainCommand { get; private set; }
+        public ICommand CheckAndGoVerifyCommand { get; private set; }
 
         private bool IsProfileCreated 
         { 
@@ -31,58 +29,62 @@ namespace VoicePay.ViewModels.Enrollment
         }
 
 
-        public WelcomeViewModel() : this(CrossPermissions.Current) { }
-        public WelcomeViewModel(IPermissions permissionService)
+        public WelcomeViewModel() : this(CrossPermissions.Current, VerificationService.Instance) { }
+        public WelcomeViewModel(IPermissions permissionService, ISpeakerVerification verificationService)
         {
             _permissionService = permissionService;
-            _client = VerificationService.Instance;
+            _verificationService = verificationService;
 
-            CheckAndGoCommand = new Command(async () => await CheckPermissions());
-            GoBackCommand = new Command(async () => await GoBack());
+            CheckAndGoTrainCommand = new Command(async () => await CheckAndTrain());
+            CheckAndGoVerifyCommand = new Command(async () => await CheckAndVerify());
         }
 
 
         #region Command actions
 
-        private async Task CheckPermissions()
+        private async Task CheckAndTrain()
+        {
+            await CheckPermissionsAndGoTo(new SelectPhrasePage());
+        }
+
+        private async Task CheckAndVerify()
+        {
+            await CheckPermissionsAndGoTo(new AudioVerifyPage());
+        }
+
+        #endregion
+
+
+        private async Task CheckPermissionsAndGoTo(Page page)
         {
             IsBusy = true;
-
+            
             await RequestPermissionsIfNotGranted();
-
+            
             if (PermissionStatus == PermissionStatus.Granted)
             {
                 if (!IsProfileCreated)
                 {
                     await TryCreateProfile();
                 }
-
+                
                 if (IsProfileCreated)
                 {
-                    await GoToEnrollmentProcess();
+                    await GoToProcess(page);
                     IsBusy = false;
                 }
                 else
                 {
                     IsBusy = false;
-                    await DisplayAlert("¡Ups!", "Ocurrió un error inesperado. Intente nuevamente más tarde.", "OK");
+                    DisplayAlert("¡Ups!", "Ocurrió un error inesperado. Intente nuevamente más tarde.", "OK");
                 }
             }
             else
             {
                 IsBusy = false;
-                await DisplayAlert("¡Ups!", "No podemos continuar si no nos permiso para acceder a tu micrófono.", "OK");
+                DisplayAlert("¡Ups!", "No podemos continuar si no nos permiso para acceder a tu micrófono.", "OK");
             }
-
         }
-
-
-        private async Task GoBack()
-        {
-            await Application.Current.MainPage.Navigation.PopAsync();
-        }
-
-        #endregion
 
 
         private async Task RequestPermissionsIfNotGranted()
@@ -92,7 +94,7 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 if (await _permissionService.ShouldShowRequestPermissionRationaleAsync(Permission.Microphone))
                 {
-                    await DisplayAlert("Permisos", "Debes autorizar el uso de tu micrófono para continuar.", "OK");
+                    DisplayAlert("Permisos", "Debes autorizar el uso de tu micrófono para continuar.", "OK");
                 }
 
                 var results = await _permissionService.RequestPermissionsAsync(Permission.Microphone);
@@ -101,17 +103,11 @@ namespace VoicePay.ViewModels.Enrollment
             }
         }
 
-        private async Task GoToEnrollmentProcess()
-        {
-            await Application.Current.MainPage.Navigation.PushAsync(new SelectPhrasePage());
-        }
-
-
         private async Task TryCreateProfile()
         {
             try
             {
-                var profile = await _client.CreateProfileAsync();
+                var profile = await _verificationService.CreateProfileAsync();
                 if (!string.IsNullOrEmpty(profile.VerificationProfileId))
                 {
                     Settings.UserIdentificationId = profile.VerificationProfileId;
@@ -121,6 +117,11 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 Debug.WriteLine("Error trying to create profile.");
             }
+        }
+
+        private async Task GoToProcess(Page page)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(page);
         }
 
     }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using MvvmHelpers;
 using SpeakerRecognitionAPI.Models;
 using VoicePay.Services;
-using Xamarin.Forms;
-using MvvmHelpers;
-using FormsToolkit;
 
 namespace VoicePay.ViewModels.Enrollment
 {
@@ -34,12 +29,12 @@ namespace VoicePay.ViewModels.Enrollment
                 }
                 else
                 {
-                    await DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
+                    DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
                 }
             }
             catch
             {
-                await DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
+                DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
             }
             finally
             {

@@ -6,7 +6,7 @@ using PCLStorage;
 
 namespace SpeakerRecognitionAPI.Helpers
 {
-    public class MediaRequestHelper
+    public static class MediaRequestHelper
     {
         const int BufferSize = 1024;
 

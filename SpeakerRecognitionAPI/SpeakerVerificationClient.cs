@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SpeakerRecognitionAPI.Constants;
+using SpeakerRecognitionAPI.Interfaces;
 using SpeakerRecognitionAPI.Models;
 
 namespace SpeakerRecognitionAPI
 {
-    public class SpeakerVerificationClient : SpeakerServiceBase
+    public class SpeakerVerificationClient : SpeakerServiceBase, ISpeakerVerification
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:SpeakerRecognitionAPI.SpeakerVerificationClient"/> class.
@@ -18,6 +19,11 @@ namespace SpeakerRecognitionAPI
         {
         }
 
+        /// <summary>
+        /// Creates an speaker verification profile with the specified locale.
+        /// </summary>
+        /// <returns>Profile response that contains the id of the created speaker verification profile.</returns>
+        /// <param name="locale">Locale.</param>
         public async Task<ProfileVerification> CreateProfileAsync(string locale = "en-us")
         {
             var jsonResponse = await CreateProfileAsync(true, locale);
