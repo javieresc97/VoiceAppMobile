@@ -5,6 +5,7 @@ using SpeakerRecognitionAPI.Models;
 using VoicePay.Helpers;
 using VoicePay.Services;
 using VoicePay.Services.Interfaces;
+using VoicePay.Views.Enrollment;
 using Xamarin.Forms;
 
 namespace VoicePay.ViewModels.Enrollment
@@ -13,14 +14,16 @@ namespace VoicePay.ViewModels.Enrollment
     {
         private readonly IBeepPlayer _beeper;
         private readonly ISpeakerVerification _verificationService;
-        private string _phraseMessage => $"\"{Settings.EnrolledPhrase}\"";
+        private string PhraseMessage => $"\"{Settings.EnrolledPhrase}\"";
+        public bool IsPageActive { get; set; } = true;
 
-        public AudioVerifyViewModel()
+        public AudioVerifyViewModel() : this(VerificationService.Instance) { }
+        public AudioVerifyViewModel(ISpeakerVerification verificationService)
         {
             StateMessage = "Espera...";
 
             _beeper = DependencyService.Get<IBeepPlayer>();
-            _verificationService = VerificationService.Instance;
+            _verificationService = verificationService;
 
             Recorder.AudioInputReceived += async (object sender, string e) => { await Recorder_AudioInputReceived(sender, e); };
         }
@@ -31,7 +34,8 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 StateMessage = "No logramos escucharte :/";
                 Message = "Intenta hablando mas fuerte";
-                await WaitAndStartRecording();
+                if(IsPageActive)
+                    await WaitAndStartRecording();
                 return;
             }
 
@@ -43,15 +47,19 @@ namespace VoicePay.ViewModels.Enrollment
             try
             {
                 var verificationResponse = await _verificationService.VerifyAsync(audioFilePath, Settings.UserIdentificationId);
-                if (verificationResponse.Result == Result.Accept)
+                if (verificationResponse.Result == Result.Accept && verificationResponse.Confidence != Confidence.Low)
                 {
-                    //  Accepted
-                    DisplayAlert("BIEN", $"Voz verificada. Confianza: {verificationResponse.Confidence}", "OK");
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new CorrectResultPage());
+                    });
                 }
                 else
                 {
-                    //  Rejected
-                    DisplayAlert("NOP", $"Voz no verificada. Confianza {verificationResponse.Confidence}", "OK");
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new IncorrectResultPage());
+                    });
                 }
             }
             catch (Exception ex)
@@ -69,7 +77,7 @@ namespace VoicePay.ViewModels.Enrollment
             await Recorder.StartRecording();
             _beeper.Beep();
             StateMessage = "Escuchando...";
-            Message = _phraseMessage;
+            Message = PhraseMessage;
         }
     }
 }

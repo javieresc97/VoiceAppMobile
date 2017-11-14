@@ -190,8 +190,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\loading.json" />
-    <AndroidAsset Include="Assets\aispeech_mic.json" />
     <AndroidAsset Include="Assets\loading_mat.json" />
+    <AndroidAsset Include="Assets\aispeech_mic.json" />
     <AndroidAsset Include="Assets\completed.json" />
     <AndroidAsset Include="Assets\correct.json" />
     <AndroidAsset Include="Assets\crying.json" />

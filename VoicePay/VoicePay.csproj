@@ -44,6 +44,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Enrollment\IncorrectResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Enrollment\CorrectResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -68,12 +76,17 @@
     <Compile Include="ViewModels\Enrollment\AudioTrainingViewModel.cs" />
     <Compile Include="Helpers\EnrollmentProcess.cs" />
     <Compile Include="Services\Interfaces\IBeepPlayer.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Views\Enrollment\AudioVerifyPage.xaml.cs">
       <DependentUpon>AudioVerifyPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Enrollment\AudioVerifyViewModel.cs" />
     <Compile Include="ViewModels\AudioRecordingBaseViewModel.cs" />
+    <Compile Include="Views\Enrollment\IncorrectResultPage.xaml.cs">
+      <DependentUpon>IncorrectResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Enrollment\CorrectResultPage.xaml.cs">
+      <DependentUpon>CorrectResultPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

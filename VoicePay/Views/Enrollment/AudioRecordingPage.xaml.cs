@@ -8,7 +8,7 @@ namespace VoicePay.Views.Enrollment
 {
     public partial class AudioRecordingPage : ContentPage
     {
-        AudioRecordingViewModel ViewModel => BindingContext as AudioRecordingViewModel;
+        AudioTrainingViewModel ViewModel => BindingContext as AudioTrainingViewModel;
 
         public AudioRecordingPage()
         {

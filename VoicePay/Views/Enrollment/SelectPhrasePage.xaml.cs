@@ -16,7 +16,7 @@ namespace VoicePay.Views.Enrollment
             InitializeComponent();
         }
 
-        async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
                 return;
@@ -25,7 +25,7 @@ namespace VoicePay.Views.Enrollment
             ((ListView)sender).SelectedItem = null;
 
             var phrase = e.Item as Phrase;
-            EnrollmentProcess.SelectedPhrase = phrase;
+            EnrollmentProcess.SelectedPhrase = phrase.Text;
             await Navigation.PushAsync(new AudioRecordingPage());
         }
 

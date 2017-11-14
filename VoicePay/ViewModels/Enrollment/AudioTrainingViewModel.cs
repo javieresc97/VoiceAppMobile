@@ -13,7 +13,7 @@ namespace VoicePay.ViewModels.Enrollment
     {
         private readonly IBeepPlayer _beeper;
         private readonly ISpeakerVerification _verificationService;
-        private string _phraseMessage => $"\"{EnrollmentProcess.SelectedPhrase.Text}\"";
+        private string PhraseMessage => $"\"{EnrollmentProcess.SelectedPhrase}\"";
 
         private bool _isCompleted;
         public bool IsCompleted
@@ -52,7 +52,7 @@ namespace VoicePay.ViewModels.Enrollment
             try
             {
                 var enrollmentResult = await VerificationService.Instance.EnrollAsync(audioFilePath, Settings.UserIdentificationId);
-                EnrollmentProcess.SelectedPhrase.Text = enrollmentResult.Phrase;
+                EnrollmentProcess.SelectedPhrase = enrollmentResult.Phrase;
 
                 if (enrollmentResult.RemainingEnrollments > 0)
                 {
@@ -62,7 +62,7 @@ namespace VoicePay.ViewModels.Enrollment
                 {
                     IsCompleted = true;
                     StateMessage = "¡Muy bien! Hemos terminado.";
-                    Settings.EnrolledPhrase = EnrollmentProcess.SelectedPhrase.Text;
+                    Settings.EnrolledPhrase = EnrollmentProcess.SelectedPhrase;
                 }
             }
             catch (SpeakerRecognitionException ex)
@@ -91,7 +91,7 @@ namespace VoicePay.ViewModels.Enrollment
             await Recorder.StartRecording();
             _beeper.Beep();
             StateMessage = "Escuchando...";
-            Message = _phraseMessage;
+            Message = PhraseMessage;
         }
 
     }

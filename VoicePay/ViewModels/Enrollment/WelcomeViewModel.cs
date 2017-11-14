@@ -20,13 +20,7 @@ namespace VoicePay.ViewModels.Enrollment
         public ICommand CheckAndGoTrainCommand { get; private set; }
         public ICommand CheckAndGoVerifyCommand { get; private set; }
 
-        private bool IsProfileCreated 
-        { 
-            get 
-            { 
-                return Settings.Instance.Contains(nameof(Settings.UserIdentificationId)); 
-            } 
-        }
+        private bool IsProfileCreated => Settings.Instance.Contains(nameof(Settings.UserIdentificationId)); 
 
 
         public WelcomeViewModel() : this(CrossPermissions.Current, VerificationService.Instance) { }
@@ -44,7 +38,20 @@ namespace VoicePay.ViewModels.Enrollment
 
         private async Task CheckAndTrain()
         {
-            await CheckPermissionsAndGoTo(new SelectPhrasePage());
+            var savedPhrase = Settings.EnrolledPhrase;
+
+            Page page;
+            if (string.IsNullOrEmpty(savedPhrase))
+            {
+                page = new SelectPhrasePage();
+            }
+            else
+            {
+                EnrollmentProcess.SelectedPhrase = savedPhrase;
+                page = new AudioRecordingPage();
+            }
+            
+            await CheckPermissionsAndGoTo(page);
         }
 
         private async Task CheckAndVerify()

@@ -15,12 +15,14 @@ namespace VoicePay.Views.Enrollment
 
         protected override async void OnAppearing()
         {
+            ViewModel.IsPageActive = true;
             await ViewModel.StartRecording();
         }
 
         protected override async void OnDisappearing()
         {
             await ViewModel.Stop();
+            ViewModel.IsPageActive = false;
         }
     }
 }

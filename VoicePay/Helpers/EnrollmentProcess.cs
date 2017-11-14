@@ -5,6 +5,6 @@ namespace VoicePay.Helpers
 {
     public static class EnrollmentProcess
     {
-        public static Phrase SelectedPhrase { get; set; }
+        public static string SelectedPhrase { get; set; }
     }
 }
