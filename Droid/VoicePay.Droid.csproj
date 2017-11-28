@@ -182,6 +182,10 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\microphone_black.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\microphone_black.png" />
     <AndroidResource Include="Resources\drawable-mdpi\microphone_black.png" />
+    <AndroidResource Include="Resources\drawable\laptop_mac.png" />
+    <AndroidResource Include="Resources\drawable\phone.png" />
+    <AndroidResource Include="Resources\drawable\tablet.png" />
+    <AndroidResource Include="Resources\drawable\adapter.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

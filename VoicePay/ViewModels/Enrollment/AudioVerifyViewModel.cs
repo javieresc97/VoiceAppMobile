@@ -20,7 +20,7 @@ namespace VoicePay.ViewModels.Enrollment
         public AudioVerifyViewModel() : this(VerificationService.Instance) { }
         public AudioVerifyViewModel(ISpeakerVerification verificationService)
         {
-            StateMessage = "Espera...";
+            StateMessage = "Hold on...";
 
             _beeper = DependencyService.Get<IBeepPlayer>();
             _verificationService = verificationService;
@@ -32,8 +32,8 @@ namespace VoicePay.ViewModels.Enrollment
         {
             if (string.IsNullOrEmpty(audioFilePath))
             {
-                StateMessage = "No logramos escucharte :/";
-                Message = "Intenta hablando mas fuerte";
+                StateMessage = "We can't hear you :/";
+                Message = "Try speaking louder";
                 if(IsPageActive)
                     await WaitAndStartRecording();
                 return;
@@ -41,7 +41,7 @@ namespace VoicePay.ViewModels.Enrollment
 
             IsBusy = true;
 
-            StateMessage = "Verificando tu voz...";
+            StateMessage = "Verifying...";
             Message = string.Empty;
 
             try
@@ -64,7 +64,7 @@ namespace VoicePay.ViewModels.Enrollment
             }
             catch (Exception ex)
             {
-                DisplayAlert("ERROR", ex.Message, "OK");
+                DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -76,7 +76,7 @@ namespace VoicePay.ViewModels.Enrollment
         {
             await Recorder.StartRecording();
             _beeper.Beep();
-            StateMessage = "Escuchando...";
+            StateMessage = "Listening...";
             Message = PhraseMessage;
         }
     }

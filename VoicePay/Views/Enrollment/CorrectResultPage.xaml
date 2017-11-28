@@ -15,12 +15,12 @@
                 HorizontalOptions="FillAndExpand" 
                 Loop="false"/>
             <StackLayout VerticalOptions="End">
-                <Label Text="Verificación exitosa" 
+                <Label Text="Sucessful verification" 
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource PrimaryDark}"
                     FontSize="26" 
                     Margin="16,0,16,10"/>
-                <Button Text="Continuar" Clicked="Handle_Clicked" BackgroundColor="{StaticResource PrimaryDark}" TextColor="White" />
+                <Button Text="Next" Clicked="Handle_Clicked" BackgroundColor="{StaticResource PrimaryDark}" TextColor="White" />
             </StackLayout>
         </Grid>
 	</ContentPage.Content>

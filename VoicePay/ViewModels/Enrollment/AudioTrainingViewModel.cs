@@ -25,7 +25,7 @@ namespace VoicePay.ViewModels.Enrollment
         public AudioTrainingViewModel() : this(VerificationService.Instance) { }
         public AudioTrainingViewModel(ISpeakerVerification verificationService)
         {
-            StateMessage = "Espera...";
+            StateMessage = "Hold on...";
 
             _beeper = DependencyService.Get<IBeepPlayer>();
             _verificationService = verificationService;
@@ -38,15 +38,15 @@ namespace VoicePay.ViewModels.Enrollment
         {
             if (string.IsNullOrEmpty(audioFilePath))
             {
-                StateMessage = "No logramos escucharte :/";
-                Message = "Intenta hablando mas fuerte";
+                StateMessage = "We can't hear you :/";
+                Message = "Try speaking louder";
                 await WaitAndStartRecording();
                 return;
             }
 
             IsBusy = true;
 
-            StateMessage = "Analizando audio...";
+            StateMessage = "Analyzing...";
             Message = string.Empty;
 
             try
@@ -61,7 +61,7 @@ namespace VoicePay.ViewModels.Enrollment
                 else
                 {
                     IsCompleted = true;
-                    StateMessage = "¡Muy bien! Hemos terminado.";
+                    StateMessage = "¡Good! We've just finished.";
                     Settings.EnrolledPhrase = EnrollmentProcess.SelectedPhrase;
                 }
             }
@@ -69,15 +69,15 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 if (ex.DetailedError.Message.Equals("InvalidPhrase", StringComparison.OrdinalIgnoreCase))
                 {
-                    StateMessage = "¡Ups! Parece que dijiste una frase no válida";
-                    Message = "Intentémoslo denuevo...";
+                    StateMessage = "¡Oops! That was an invalid phrase.";
+                    Message = "Let's try again...";
                     await WaitAndStartRecording();
                 }
             }
             catch
             {
-                StateMessage = "¡Ups! Algo extraño sucedió";
-                Message = "Intentémoslo denuevo...";
+                StateMessage = "¡Oops! Something happened";
+                Message = "Let's try again...";
                 await WaitAndStartRecording();
             }
             finally
@@ -90,7 +90,7 @@ namespace VoicePay.ViewModels.Enrollment
         {
             await Recorder.StartRecording();
             _beeper.Beep();
-            StateMessage = "Escuchando...";
+            StateMessage = "Listening...";
             Message = PhraseMessage;
         }
 

@@ -29,12 +29,12 @@ namespace VoicePay.ViewModels.Enrollment
                 }
                 else
                 {
-                    DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
+                    DisplayAlert("¡Oops!", "Our service is not available right now.", "OK");
                 }
             }
             catch
             {
-                DisplayAlert("¡Ups!", "El servicio no está disponible ahora. Inténtalo nuevamente.", "OK");
+                DisplayAlert("¡Oops!", "Our service is not available right now.", "OK");
             }
             finally
             {

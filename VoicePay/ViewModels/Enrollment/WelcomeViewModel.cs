@@ -83,13 +83,13 @@ namespace VoicePay.ViewModels.Enrollment
                 else
                 {
                     IsBusy = false;
-                    DisplayAlert("¡Ups!", "Ocurrió un error inesperado. Intente nuevamente más tarde.", "OK");
+                    DisplayAlert("¡Oops!", "There was an unexpected error, try again later.", "OK");
                 }
             }
             else
             {
                 IsBusy = false;
-                DisplayAlert("¡Ups!", "No podemos continuar si no nos permiso para acceder a tu micrófono.", "OK");
+                DisplayAlert("¡Oops!", "We can't continue if you don't give us access to your mic.", "OK");
             }
         }
 
@@ -101,7 +101,7 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 if (await _permissionService.ShouldShowRequestPermissionRationaleAsync(Permission.Microphone))
                 {
-                    DisplayAlert("Permisos", "Debes autorizar el uso de tu micrófono para continuar.", "OK");
+                    DisplayAlert("Permissions", "You should authorize us to use your micropohne.", "OK");
                 }
 
                 var results = await _permissionService.RequestPermissionsAsync(Permission.Microphone);

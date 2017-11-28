@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using VoicePay.ViewModels.Enrollment;
+﻿using VoicePay.ViewModels.Enrollment;
 using Xamarin.Forms;
 
 namespace VoicePay.Views.Enrollment
