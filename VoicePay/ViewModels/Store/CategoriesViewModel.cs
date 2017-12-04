@@ -55,12 +55,12 @@ namespace VoicePay.ViewModels.Store
 
         private async Task CategoryTapped(Category cat)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new ItemListPage(cat.Description));
+            await MasterNavigateTo(new ItemListPage(cat.Description));
         }
 
         private async Task GoToCartReview()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new CartReviewPage());
+            await MasterNavigateTo(new CartReviewPage());
         }
     }
 }

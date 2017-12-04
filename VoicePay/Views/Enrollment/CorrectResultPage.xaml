@@ -15,7 +15,7 @@
                 HorizontalOptions="FillAndExpand" 
                 Loop="false"/>
             <StackLayout VerticalOptions="End">
-                <Label Text="Sucessful verification" 
+                <Label Text="Sucessful verification. Transaction completed." 
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource PrimaryDark}"
                     FontSize="26" 

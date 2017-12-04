@@ -31,7 +31,7 @@ namespace VoicePay.ViewModels.Store
             if (shouldAdd)
             {
                 Cart.Instance.AddItem(Item, Quantity);
-                await Application.Current.MainPage.Navigation.PopToRootAsync();
+                await MasterDetail.Detail.Navigation.PopToRootAsync();
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SpeakerRecognitionAPI.Models;
 using VoicePay.Helpers;
+using VoicePay.ViewModels;
 using VoicePay.ViewModels.Enrollment;
 using Xamarin.Forms;
 
@@ -26,7 +27,7 @@ namespace VoicePay.Views.Enrollment
 
             var phrase = e.Item as Phrase;
             EnrollmentProcess.SelectedPhrase = phrase.Text;
-            await Navigation.PushAsync(new AudioRecordingPage());
+            await BaseViewModel.MasterDetail.Detail.Navigation.PushAsync(new AudioRecordingPage());
         }
 
         protected async override void OnAppearing()

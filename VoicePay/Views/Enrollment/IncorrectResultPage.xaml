@@ -15,7 +15,7 @@
                 HorizontalOptions="FillAndExpand" 
                 Loop="true"/>
             <StackLayout VerticalOptions="End">
-                <Label Text="We couldn't verify your voice" 
+                <Label Text="We couldn't verify your voice. Please, try again." 
                     HorizontalTextAlignment="Center"
                     TextColor="{StaticResource Accent2}"
                     FontSize="26"

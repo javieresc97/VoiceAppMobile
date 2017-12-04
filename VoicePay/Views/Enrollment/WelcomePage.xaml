@@ -4,7 +4,11 @@
     xmlns:vm="clr-namespace:VoicePay.ViewModels.Enrollment; assembly=VoicePay"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     x:Class="VoicePay.Views.Enrollment.WelcomePage"
-    NavigationPage.HasNavigationBar="False">
+    Title="Voice Training">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Clear" Priority="0" Order="Primary" Command="{Binding ClearCommand}" />
+    </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>
         <vm:WelcomeViewModel />

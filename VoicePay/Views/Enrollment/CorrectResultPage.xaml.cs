@@ -1,5 +1,7 @@
 ﻿
 using Xamarin.Forms;
+using VoicePay.ViewModels;
+using VoicePay.Helpers;
 
 namespace VoicePay.Views.Enrollment
 {
@@ -10,9 +12,11 @@ namespace VoicePay.Views.Enrollment
             InitializeComponent();
         }
 
-        void Handle_Clicked(object sender, System.EventArgs e)
+        async void Handle_Clicked(object sender, System.EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new WelcomePage());
+            await BaseViewModel.MasterDetail.Detail.Navigation.PopToRootAsync();
+            await BaseViewModel.MasterDetail.Detail.Navigation.PopModalAsync();
+            Cart.Instance.Clear();
         }
     }
 }

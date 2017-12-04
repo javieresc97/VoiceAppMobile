@@ -15,7 +15,8 @@ namespace VoicePay
 
             FlowListView.Init();
             //MainPage = new NavigationPage(new Views.Enrollment.WelcomePage());
-            MainPage = new NavigationPage(new Views.Store.CategoriesPage());
+            //MainPage = new NavigationPage(new Views.Store.CategoriesPage());
+            MainPage = new Views.Authentication.LoginPage();
         }
 
         protected override void OnStart()

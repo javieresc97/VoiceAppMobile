@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VoicePay.ViewModels;
 using VoicePay.ViewModels.Enrollment;
 using Xamarin.Forms;
 
@@ -27,7 +28,7 @@ namespace VoicePay.Views.Enrollment
             {
                 CompletedAnimated.Play();
                 await Task.Delay(3000);
-                await Navigation.PopToRootAsync(false);
+                await BaseViewModel.MasterDetail.Detail.Navigation.PopToRootAsync(false);
             }
         }
 

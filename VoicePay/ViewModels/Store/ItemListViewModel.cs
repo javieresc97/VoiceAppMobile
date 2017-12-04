@@ -26,7 +26,7 @@ namespace VoicePay.ViewModels.Store
         public async Task GoToReview(Item item)
         {
             var bindingContext = new ProductReviewViewModel(item);
-            await Application.Current.MainPage.Navigation.PushAsync(new ProductReviewPage { BindingContext = bindingContext });
+            await MasterNavigateTo(new ProductReviewPage { BindingContext = bindingContext });
         }
 
         public async Task OnAppearing()

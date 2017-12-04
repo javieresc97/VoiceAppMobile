@@ -18,6 +18,12 @@
                 <Setter Property="TextColor" Value="White" />
             </Style>
 
+            <Style TargetType="Entry">
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="PlaceholderColor" Value="#bababa" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
             <!-- Font families -->
             <OnPlatform x:Key="RegularFontFamily" x:TypeArguments="x:String">
                 <On Platform="iOS">HelveticaNeue</On>

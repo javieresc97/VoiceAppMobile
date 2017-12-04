@@ -68,6 +68,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Payment\PaymentReviewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Authentication\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AppMasterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -127,6 +143,20 @@
       <DependentUpon>CartReviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Store\CartReviewViewModel.cs" />
+    <Compile Include="Views\Payment\PaymentReviewPage.xaml.cs">
+      <DependentUpon>PaymentReviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Payment\PaymentReviewViewModel.cs" />
+    <Compile Include="Views\Authentication\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShellPage.xaml.cs">
+      <DependentUpon>ShellPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppMasterPage.xaml.cs">
+      <DependentUpon>AppMasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AppMasterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -187,6 +217,9 @@
     <Folder Include="ViewModels\Store\" />
     <Folder Include="Data\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModels\Payment\" />
+    <Folder Include="Views\Payment\" />
+    <Folder Include="Views\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpeakerRecognitionAPI\SpeakerRecognitionAPI.csproj">

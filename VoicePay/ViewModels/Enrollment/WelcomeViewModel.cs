@@ -8,6 +8,7 @@ using System.Diagnostics;
 using VoicePay.Services;
 using VoicePay.Views.Enrollment;
 using SpeakerRecognitionAPI.Interfaces;
+using System;
 
 namespace VoicePay.ViewModels.Enrollment
 {
@@ -19,6 +20,7 @@ namespace VoicePay.ViewModels.Enrollment
         public PermissionStatus PermissionStatus { get; private set; }
         public ICommand CheckAndGoTrainCommand { get; private set; }
         public ICommand CheckAndGoVerifyCommand { get; private set; }
+        public ICommand ClearCommand { get; set; }
 
         private bool IsProfileCreated => Settings.Instance.Contains(nameof(Settings.UserIdentificationId)); 
 
@@ -31,6 +33,7 @@ namespace VoicePay.ViewModels.Enrollment
 
             CheckAndGoTrainCommand = new Command(async () => await CheckAndTrain());
             CheckAndGoVerifyCommand = new Command(async () => await CheckAndVerify());
+            ClearCommand = new Command(Clear);
         }
 
 
@@ -57,6 +60,11 @@ namespace VoicePay.ViewModels.Enrollment
         private async Task CheckAndVerify()
         {
             await CheckPermissionsAndGoTo(new AudioVerifyPage());
+        }
+
+        private void Clear()
+        {
+            Settings.Instance.Clear();
         }
 
         #endregion
@@ -101,7 +109,7 @@ namespace VoicePay.ViewModels.Enrollment
             {
                 if (await _permissionService.ShouldShowRequestPermissionRationaleAsync(Permission.Microphone))
                 {
-                    DisplayAlert("Permissions", "You should authorize us to use your micropohne.", "OK");
+                    DisplayAlert("Permissions", "You should authorize us to use your microphone.", "OK");
                 }
 
                 var results = await _permissionService.RequestPermissionsAsync(Permission.Microphone);
@@ -128,7 +136,7 @@ namespace VoicePay.ViewModels.Enrollment
 
         private async Task GoToProcess(Page page)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(page);
+            await MasterNavigateTo(page);
         }
 
     }
